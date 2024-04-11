@@ -1,3 +1,4 @@
+{{- if .Values.ingress.enabled  }}
 {{- $ingressAnnotations := include "hanowl-recruit.ingress.annotations" .  -}}
 {{- $labels := include "hanowl-recruit.labels" . }}
 
@@ -31,3 +32,5 @@ spec:
             name: {{ .Chart.Name }}
             port:
               number: 80
+
+{{- end}}
