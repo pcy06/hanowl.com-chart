@@ -1,0 +1,18 @@
+{{- $selectorLabels := include "hanowl-recruit.selectorLabels" . }}
+{{- $labels := include "hanowl-recruit.labels" . }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{ .Values.namespace }}
+  name: {{ .Chart.Name }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    {{- $selectorLabels | nindent 4 }}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

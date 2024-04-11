@@ -1,0 +1,33 @@
+{{- $ingressAnnotations := include "hanowl-recruit.ingress.annotations" .  -}}
+{{- $labels := include "hanowl-recruit.labels" . }}
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+  {{- if $ingressAnnotations }}
+  annotations:
+    {{- $ingressAnnotations | indent 4 }}
+  {{- end }}
+  labels:
+    {{- $labels | nindent 4 }}
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.ingressDomain }}
+    secretName: {{ .Values.ingress.tls.secretName }}
+  {{- end }}
+  rules:
+  - host: {{ .Values.ingress.ingressDomain }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ .Chart.Name }}
+            port:
+              number: 80

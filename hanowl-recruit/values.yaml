@@ -1,0 +1,26 @@
+replicaCount: 2
+
+namespace: application
+
+image:
+  repository: ghcr.io/pcy06/hanowl-recruit
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+imagePullSecrets: [{"name" : "ghcr-pcy06"}]
+
+podAnnotations: {}
+podLabels: {}
+
+service:
+  type: ClusterIP
+
+ingress:
+  enabled: true
+  className: "nginx"
+  ingressDomain: "recruit.hanum.us"
+  annotations: {}
+  tls:
+    enabled: true
+    certManagerIssuer: "letsencrypt-prod"
+    secretName: "hanum-recruit-tls"
