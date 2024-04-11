@@ -5,7 +5,7 @@ namespace: application
 image:
   repository: ghcr.io/pcy06/hanowl-recruit
   pullPolicy: IfNotPresent
-  tag: "v2"
+  tag: "v3"
 
 imagePullSecrets: [{"name" : "ghcr-pcy06"}]
 
